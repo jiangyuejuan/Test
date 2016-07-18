@@ -1,0 +1,5 @@
+D:\SvnServer\ZEGNA\source\Job\SendSMS_Zenga\SendSMS_Zenga\bin\Debug\WinFrm.WyethSMS.exe.config
+D:\SvnServer\ZEGNA\source\Job\SendSMS_Zenga\SendSMS_Zenga\obj\Debug\SendSMS_Zenga.csprojResolveAssemblyReference.cache
+D:\SvnServer\ZEGNA\source\Job\SendSMS_Zenga\SendSMS_Zenga\obj\Debug\WinFrm.WyethSMS.FrmServer.resources
+D:\SvnServer\ZEGNA\source\Job\SendSMS_Zenga\SendSMS_Zenga\obj\Debug\WinFrm.WyethSMS.Properties.Resources.resources
+D:\SvnServer\ZEGNA\source\Job\SendSMS_Zenga\SendSMS_Zenga\obj\Debug\SendSMS_Zenga.csproj.GenerateResource.Cache

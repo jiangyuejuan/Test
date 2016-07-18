@@ -1,0 +1,235 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="VIPCardResult"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+
+  <alias>
+    <typeAlias alias="VIPCardResult" type="Zenga.Model.VIPCardResult, Zenga.Model"  />
+  </alias>
+
+
+  <resultMaps>
+    <resultMap id="VIPCardResult.VIPCardResultMap" class="VIPCardResult">
+      <result property="Mobile" column="Mobile" dbType="string" />
+      <result property="CounterCode" column="CounterCode" dbType="string" />
+      <result property="MemberCode" column="MemberCode" dbType="string" />
+      <result property="Status" column="Status" dbType="int" />
+      <result property="ConsumeAmount" column="ConsumeAmount" dbType="decimal" />
+      <result property="Remark" column="Remark" dbType="string" />
+      <result property="CreateTime" column="CreateTime" dbType="DateTime" />
+      <result property="UpdateTime" column="UpdateTime" dbType="DateTime" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="VIPCardResult.GetAll" >
+      SELECT * FROM [VIPCardResult]
+    </select>
+
+    <select id="VIPCardResult.GetByCode" resultMap="VIPCardResult.VIPCardResultMap" paremeterClass="string" >
+      SELECT * FROM [VIPCardResult]
+      where MemberCode = (select MemberCode from VIPCardInfo where CardCode = #value#)
+    </select>
+
+    <select id="VIPCardResult.GetByMemberCode" resultClass="VIPCardResult" paremeterClass="string" >
+      SELECT * FROM [VIPCardResult]
+      where MemberCode=#value#
+    </select>
+
+    <select id="VIPCardResult.GetByMobile" resultClass="VIPCardResult" paremeterClass="string" >
+      SELECT * FROM [VIPCardResult]
+      where Mobile=#value#
+    </select>
+
+    <select id="VIPCardResult.NewQuery" resultClass="VIPCardResult" paremeterClass="string" >
+		select vc.MemberCode,si.CounterCode,si.StopType as StoreType,vc.CardCode,si.SotreNameEN as StoreNameEN,vc.MemberName,vc.Mobile,vc.CardAmount,case when vip.Status = '1' then '已使用' else '未使用' end as Status ,vip.CreateTime,vip.ConsumeAmount,vip.Remark
+		from VIPCardInfo as vc left join StoreInfo as si
+		on si.CounterCode=vc.CounterCode
+		left join VIPCardResult as vip
+		on vip.MemberCode=vc.MemberCode
+		order by isnull(vip.Status,'0') desc
+	</select>
+
+    <select id="VIPCardResult.QueryAllByCardResultLinkCardInfo" parameterClass="Hashtable">
+		select vc.MemberCode,si.CounterCode,si.StopType as StoreType
+		,CASE WHEN vip.MemberCode IS NULL THEN NULL
+		ELSE vc.CardCode
+		END AS CardCode
+		,si.SotreNameEN as StoreNameEN,vc.MemberName,vc.Mobile,vc.CardAmount,case when vip.Status = '1' then '已使用' else '未使用' end as Status ,vip.CreateTime,vip.ConsumeAmount,vip.Remark
+		from VIPCardInfo as vc left join StoreInfo as si
+		on si.CounterCode=vc.CounterCode
+		left join VIPCardResult as vip
+		on vip.MemberCode=vc.MemberCode
+		where 1=1
+		<dynamic >
+        <isPropertyAvailable property="CounterCode">
+          <isNotNull property="CounterCode" >
+			  AND ( vc.CounterCode = #CounterCode#
+			  OR vip.CounterCode = #CounterCode#
+			  )
+		  </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+      order by isnull(vip.Status,'0') desc
+    </select>
+
+    <!--根据姓名查询-->
+    <select id="VIPCardResult.QueryResultByName" parameterClass="Hashtable">
+		select vc.MemberCode,si.CounterCode,si.StopType as StoreType
+		,CASE WHEN vip.MemberCode IS NULL THEN NULL
+		ELSE vc.CardCode
+		END AS CardCode
+		,si.SotreNameEN as StoreNameEN,vc.MemberName,vc.Mobile,vc.CardAmount,case when vip.Status = '1' then '已使用' else '未使用' end as Status ,vip.CreateTime,vip.ConsumeAmount,vip.Remark
+		from VIPCardInfo as vc left join StoreInfo as si
+		on si.CounterCode=vc.CounterCode
+		left join VIPCardResult as vip
+		on vip.MemberCode=vc.MemberCode
+		where vc.MemberName like '%$Name$%'
+		<dynamic >
+        <isPropertyAvailable property="CounterCode">
+          <isNotNull property="CounterCode"  >
+            AND ( vc.CounterCode = #CounterCode#
+            OR vip.CounterCode = #CounterCode#
+            )
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+      order by isnull(vip.Status,'0') desc
+    </select>
+
+    <!--根据手机查询-->
+    <select id="VIPCardResult.QueryResultByMobile" parameterClass="Hashtable">
+		select vc.MemberCode,si.CounterCode,si.StopType as StoreType
+		,CASE WHEN vip.MemberCode IS NULL THEN NULL
+		ELSE vc.CardCode
+		END AS CardCode
+		,si.SotreNameEN as StoreNameEN,vc.MemberName,vc.Mobile,vc.CardAmount,case when vip.Status = '1' then '已使用' else '未使用' end as Status ,vip.CreateTime,vip.ConsumeAmount,vip.Remark
+		from VIPCardInfo as vc left join StoreInfo as si
+		on si.CounterCode=vc.CounterCode
+		left join VIPCardResult as vip
+		on vip.MemberCode=vc.MemberCode
+		where vc.Mobile like '%$Mobile$%'
+		<dynamic >
+        <isPropertyAvailable property="CounterCode">
+          <isNotNull property="CounterCode"  >
+            AND ( vc.CounterCode = #CounterCode#
+            OR vip.CounterCode = #CounterCode#
+            )
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+      order by isnull(vip.Status,'0') desc
+    </select>
+
+    <!--根据Code查询-->
+    <select id="VIPCardResult.QueryResultByCardCode" parameterClass="Hashtable">
+
+		select vc.MemberCode,si.CounterCode,si.StopType as StoreType
+		,CASE WHEN vip.MemberCode IS NULL THEN NULL
+		ELSE vc.CardCode
+		END AS CardCode
+		,si.SotreNameEN as StoreNameEN,vc.MemberName,vc.Mobile,vc.CardAmount,case when vip.Status = '1' then '已使用' else '未使用' end as Status ,vip.CreateTime,vip.ConsumeAmount,vip.Remark
+		from VIPCardInfo as vc left join StoreInfo as si
+		on si.CounterCode=vc.CounterCode
+		left join VIPCardResult as vip
+		on vip.MemberCode=vc.MemberCode
+		WHERE     vc.CardCode LIKE '%$CardCode$%'
+		<dynamic >
+        <isPropertyAvailable property="CounterCode">
+          <isNotNull property="CounterCode"  >
+            AND ( vc.CounterCode = #CounterCode#
+            OR vip.CounterCode = #CounterCode#
+            )
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+      order by isnull(vip.Status,'0') desc
+    </select>
+
+    <!--根据时间查询-->
+    <select id="VIPCardResult.QueryResultByTime" parameterClass="Hashtable">
+		select vc.MemberCode,si.CounterCode,si.StopType as StoreType
+		,CASE WHEN vip.MemberCode IS NULL THEN NULL
+		ELSE vc.CardCode
+		END AS CardCode
+		,si.SotreNameEN as StoreNameEN,vc.MemberName,vc.Mobile,vc.CardAmount,case when vip.Status = '1' then '已使用' else '未使用' end as Status ,vip.CreateTime,vip.ConsumeAmount,vip.Remark
+		from VIPCardInfo as vc left join StoreInfo as si
+		on si.CounterCode=vc.CounterCode
+		left join VIPCardResult as vip
+		on vip.MemberCode=vc.MemberCode
+		WHERE     vip.CreateTime BETWEEN #BeginTime# AND #EndTime#
+		<dynamic >
+        <isPropertyAvailable property="CounterCode">
+          <isNotNull property="CounterCode"  >
+            AND ( vc.CounterCode = #CounterCode#
+            OR vip.CounterCode = #CounterCode#
+            )
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic>
+      order by isnull(vip.Status,'0') desc
+    </select>
+
+    <insert id="VIPCardResult.Insert" parameterClass="VIPCardResult">
+      INSERT INTO  [VIPCardResult]
+      (
+      [Mobile]
+      ,[CounterCode]
+      ,[MemberCode]
+      ,[Status]
+      ,[ConsumeAmount]
+      ,[Remark]
+      ,[CreateTime]
+      ,[UpdateTime]
+      )
+      VALUES
+      (
+      #Mobile#
+      ,#CounterCode#
+      ,#MemberCode#
+      ,#Status#
+      ,#ConsumeAmount#
+      ,#Remark#
+      ,#CreateTime#
+      ,#UpdateTime#
+      )
+    </insert>
+
+
+
+
+    <update id="VIPCardResult.Update" parameterClass="VIPCardResult">
+      UPDATE [VIPCardResult]
+      SET
+
+      [MemberCode]=#MemberCode#
+      ,[CounterCode] = #CounterCode#
+      ,[Status] = #Status#
+      ,[ConsumeAmount] = #ConsumeAmount#
+      ,[Remark] = #Remark#
+      ,[CreateTime] = #CreateTime#
+      ,[UpdateTime] = #UpdateTime#
+
+      WHERE  1=1 and [MemberCode] = #MemberCode#
+    </update>
+
+    <update id="VIPCardResult.UpdateResult" parameterClass="Hashtable">
+      UPDATE [VIPCardResult]
+      SET
+
+      [ConsumeAmount] = #ConsumeAmount#
+      ,[Remark] = #Remark#
+      ,[UpdateTime] = #UpdateTime#
+
+      WHERE  1=1 and [MemberCode] = #MemberCode#
+    </update>
+
+    <delete id="VIPCardResult.RemoveByCode" parameterClass="string">
+      DELETE VIPCardResult where MemberCode = #value#
+    </delete>
+
+  </statements>
+
+</sqlMap>

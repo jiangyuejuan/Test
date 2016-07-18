@@ -1,0 +1,194 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="MemberInfo"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <alias>
+    <typeAlias alias="MemberInfo" type="Zenga.Model.MemberInfo, Zenga.Model"  />
+  </alias>
+
+
+  <resultMaps>
+    <resultMap id="MemberInfo.MemberInfoMap" class="MemberInfo">
+      <result property="UserID" column="UserID" dbType="long" />
+      <result property="Name" column="Name" dbType="string" />
+      <result property="ConfirmName" column="ConfirmName" dbType="string" />
+      <result property="Mobile" column="Mobile" dbType="string" />
+      <result property="ConfirmMobile" column="ConfirmMobile" dbType="string" />
+      <result property="ManageStore" column="ManageStore" dbType="string" />
+      <result property="InUserStore" column="InUserStore" dbType="string" />
+      <result property="Amount" column="Amount" dbType="decimal" />
+      <result property="Remark" column="Remark" dbType="string" />
+      <result property="CreateTime" column="CreateTime" dbType="DateTime" />
+      <result property="Status" column="Status" dbType="bit" />
+    </resultMap>
+  </resultMaps>
+  
+  <statements>
+
+    <select id="MemberInfo.GetAll" >
+      SELECT * FROM [MemberInfo]
+    </select>
+  <select id="MemberInfo.GetStoreInfo"  parameterClass="string" >
+    select CounterCode, CounterCode +':'+sotreNameEN as DisplayName from storeInfo
+  </select>
+	  <select id="MemberInfo.QueryStoreByCode" resultClass="MemberInfo" parameterClass="string" >
+      SELECT * FROM [MemberInfo] where ManageStore=#value#
+    </select>
+    <select id="MemberInfo.QueryUserByMemberCode" resultClass="MemberInfo" parameterClass="long" >
+      SELECT * FROM [MemberInfo] where UserID=#value#
+    </select>
+    <select id="MemberInfo.QueryUserMobile" resultClass="MemberInfo" parameterClass="Hashtable" >
+      SELECT * FROM [MemberInfo] where UserID!=#UserID# and (mobile = #mobile# or ConfirmMobile = #mobile#)
+    </select>
+    <select id="MemberInfo.QueryUserByFilter" resultClass="MemberInfo" parameterClass="Hashtable" >
+      SELECT [UserID]
+      ,[Name]
+      ,[ConfirmName]
+      ,[Mobile]
+      ,[ConfirmMobile]
+      ,[ManageStore]
+      ,[InUserStore]
+      ,[Amount]
+      ,[Remark]
+      ,[CreateTime]
+      ,case when Status = '1' then '已确认' else '未确认' end as Status
+      FROM [dbo].[MemberInfo] where 1=1
+      <dynamic >
+        <isPropertyAvailable property="Mobile">
+          <isNotNull property="Mobile">
+            AND Mobile like '%$Mobile$%' 
+          </isNotNull>
+        </isPropertyAvailable>
+        <isPropertyAvailable property="Status">
+          <isNotNull property="Status">
+            AND Status =#Status#
+          </isNotNull>
+        </isPropertyAvailable>
+        <isPropertyAvailable property="ManageStore">
+          <isNotNull property="ManageStore">
+            AND ManageStore =#ManageStore#
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic >
+      order by status desc
+    </select>
+
+    <select id="MemberInfo.QueryUserByFilterExport" resultClass="MemberInfo" parameterClass="Hashtable" >
+      SELECT [UserID] 会员号
+      ,[Name] 姓名Update
+      ,case when Status = '1' and ([ConfirmName] is null or [ConfirmName] ='') then [Name]
+      else [ConfirmName] end as 确认姓名
+      ,[Mobile] 手机号
+      ,case when Status = '1' and ConfirmMobile is null then Mobile
+      else ConfirmMobile end as 确认手机号
+      ,[ManageStore] 管理店铺
+      ,[InUserStore] 使用店铺
+      ,[Amount] 尊享券金额
+      ,case when Status = '1' then '已确认' else '未确认' end as 状态
+      ,[Remark] 备注
+      FROM [dbo].[MemberInfo] where 1=1
+      <dynamic >
+        <isPropertyAvailable property="Mobile">
+          <isNotNull property="Mobile">
+            AND Mobile like '%$Mobile$%'
+          </isNotNull>
+        </isPropertyAvailable>
+        <isPropertyAvailable property="Status">
+          <isNotNull property="Status">
+            AND Status =#Status#
+          </isNotNull>
+        </isPropertyAvailable>
+        <isPropertyAvailable property="ManageStore">
+          <isNotNull property="ManageStore">
+            AND ManageStore =#ManageStore#
+          </isNotNull>
+        </isPropertyAvailable>
+      </dynamic >
+      order by status desc
+    </select>
+    <!--<select id="MemberInfo.QueryStoreByVerifyCardCode" resultClass="MemberInfo" parameterClass="string" >
+      SELECT si.* FROM MemberInfo si , VIPCardInfo vc , VIPCardResult vr
+      WHERE si.CounterCode = vr.CounterCode AND vc.MemberCode = vr.MemberCode
+      AND vc.CardCode=#value#
+    </select>-->
+
+    <!--<insert id="MemberInfo.Insert" parameterClass="MemberInfo">
+      INSERT INTO  [MemberInfo]
+      (
+      [City]
+      ,[CounterCode]
+      ,[StoreName]
+      ,[SotreNameEN]
+      ,[StopType]
+      ,[StoreAddr]
+      ,[StorePhone]
+      ,[StoreMasterPhone]
+      ,[StoreMasterName]
+      )
+      VALUES
+      (
+      #City#
+      ,#CounterCode#
+      ,#StoreName#
+      ,#SotreNameEN#
+      ,#StopType#
+      ,#StoreAddr#
+      ,#StorePhone#
+      ,#StoreMasterPhone#
+      ,#StoreMasterName#
+      )
+    </insert>-->
+
+
+
+
+    <!--<update id="MemberInfo.Update" parameterClass="MemberInfo">
+      UPDATE [MemberInfo]
+      SET
+      [City] = #City#
+      ,[CounterCode] = #CounterCode#
+      ,[StoreName] = #StoreName#
+      ,[SotreNameEN] = #SotreNameEN#
+      ,[StopType] = #StopType#
+      ,[StoreAddr] = #StoreAddr#
+      ,[StorePhone] = #StorePhone#
+      ,[StoreMasterPhone] = #StoreMasterPhone#
+      ,[StoreMasterName] = #StoreMasterName#
+
+      WHERE  1=1
+    </update>-->
+
+    <delete id="MemberInfo.Delete" >
+      delete from [MemberInfo]
+    </delete>
+
+    <update id="MemberInfo.Update" parameterClass="MemberInfo">
+      UPDATE [MemberInfo]
+      SET
+      [ConfirmName]= #ConfirmName#
+      ,[ConfirmMobile] = #ConfirmMobile#
+      ,[InUserStore] = #InUserStore#
+      ,[Remark] = #Remark#
+      ,[Status] =1
+      WHERE  1=1
+      and [UserID] = #UserID#
+
+    </update>
+
+    <update id="MemberInfo.UpdateStatus" parameterClass="MemberInfo">
+      UPDATE [MemberInfo]
+      SET Status =1
+      WHERE  1=1
+      and [UserID] = #UserID#
+
+    </update>
+
+    <!--<insert id="MemberInfo.InsertBatch" >
+      INSERT into dbo.MemberInfo  SELECT * FROM MemberInfoTemp
+    </insert>-->
+    
+    
+  </statements>
+
+</sqlMap>

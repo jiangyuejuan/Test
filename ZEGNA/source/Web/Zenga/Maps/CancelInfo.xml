@@ -1,0 +1,93 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="CancelInfo"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<alias>
+		<typeAlias alias="CancelInfo" type="Zenga.Model.CancelInfo, Zenga.Model"  />
+	</alias>
+
+	<resultMaps>
+		<resultMap id="CancelInfo.CancelInfoMap" class="CancelInfo">
+			<result property="CardCode" column="CardCode" dbType="string" />
+			<result property="CardAmount" column="CardAmount" dbType="string" />
+			<result property="CustomerTime" column="CustomerTime" dbType="DateTime" />
+			<result property="CounterCode" column="CounterCode" dbType="string" />
+			<result property="MemberCode" column="MemberCode" dbType="string" />
+			<result property="MemberName" column="MemberName" dbType="string" />
+			<result property="Mobile" column="Mobile" dbType="string" />
+			<result property="CustomerAmount" column="CustomerAmount" dbType="string" />
+			<result property="Remark" column="Remark" dbType="string" />
+      <result property="ActionRemark" column="ActionRemark" dbType="string" />
+      <result property="ActionType" column="ActionType" dbType="int" />
+      
+			<result property="CreateTime" column="CreateTime" dbType="DateTime" />
+			<result property="UpdateTime" column="UpdateTime" dbType="DateTime" />
+		</resultMap>
+	</resultMaps>
+
+	<statements>
+
+		<select id="CancelInfo.GetAll" >
+			SELECT * FROM [CancelInfo]
+		</select>
+
+
+
+		<insert id="CancelInfo.Insert" parameterClass="CancelInfo">
+      INSERT INTO  [CancelInfo]
+      (
+      [CardCode]
+      ,[CardAmount]
+      ,[CustomerTime]
+      ,[CounterCode]
+      ,[MemberCode]
+      ,[MemberName]
+      ,[Mobile]
+      ,[CustomerAmount]
+      ,[Remark]
+      ,[ActionRemark]
+      ,[ActionType]
+      ,[CreateTime]
+      )
+      VALUES
+      (
+      #CardCode#
+      ,#CardAmount#
+      ,#CustomerTime#
+      ,#CounterCode#
+      ,#MemberCode#
+      ,#MemberName#
+      ,#Mobile#
+      ,#CustomerAmount#
+      ,#Remark#
+      ,#ActionRemark#
+      ,#ActionType#
+      ,#CreateTime#
+      )
+    </insert>
+
+
+
+
+		<update id="CancelInfo.Update" parameterClass="CancelInfo">
+			UPDATE [CancelInfo]
+			SET
+			[CardCode] = #CardCode#
+			,[CardAmount] = #CardAmount#
+			,[CustomerTime] = #CustomerTime#
+			,[CounterCode] = #CounterCode#
+			,[MemberCode] = #MemberCode#
+			,[MemberName] = #MemberName#
+			,[Mobile] = #Mobile#
+			,[CustomerAmount] = #CustomerAmount#
+			,[Remark] = #Remark#
+			,[CreateTime] = #CreateTime#
+			,[UpdateTime] = #UpdateTime#
+
+			WHERE  1=1
+		</update>
+
+	</statements>
+
+</sqlMap>

@@ -1,0 +1,98 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="StoreInfo"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <alias>
+    <typeAlias alias="StoreInfo" type="Zenga.Model.StoreInfo, Zenga.Model"  />
+  </alias>
+
+
+  <resultMaps>
+    <resultMap id="StoreInfo.StoreInfoMap" class="StoreInfo">
+      <result property="City" column="City" dbType="string" />
+      <result property="CounterCode" column="CounterCode" dbType="string" />
+      <result property="StoreName" column="StoreName" dbType="string" />
+      <result property="SotreNameEN" column="SotreNameEN" dbType="string" />
+      <result property="StopType" column="StopType" dbType="string" />
+      <result property="StoreAddr" column="StoreAddr" dbType="string" />
+      <result property="StorePhone" column="StorePhone" dbType="string" />
+      <result property="StoreMasterPhone" column="StoreMasterPhone" dbType="string" />
+      <result property="StoreMasterName" column="StoreMasterName" dbType="string" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="StoreInfo.GetAll" >
+      SELECT * FROM [StoreInfo]
+    </select>
+
+	  <select id="StoreInfo.QueryStoreByCode" resultClass="StoreInfo" parameterClass="string" >
+		  SELECT * FROM [StoreInfo] where CounterCode=#value#
+	  </select>
+
+    <select id="StoreInfo.QueryStoreByVerifyCardCode" resultClass="StoreInfo" parameterClass="string" >
+      SELECT si.* FROM StoreInfo si , VIPCardInfo vc , VIPCardResult vr
+      WHERE si.CounterCode = vr.CounterCode AND vc.MemberCode = vr.MemberCode
+      AND vc.CardCode=#value#
+    </select>
+
+    <insert id="StoreInfo.Insert" parameterClass="StoreInfo">
+      INSERT INTO  [StoreInfo]
+      (
+      [City]
+      ,[CounterCode]
+      ,[StoreName]
+      ,[SotreNameEN]
+      ,[StopType]
+      ,[StoreAddr]
+      ,[StorePhone]
+      ,[StoreMasterPhone]
+      ,[StoreMasterName]
+      )
+      VALUES
+      (
+      #City#
+      ,#CounterCode#
+      ,#StoreName#
+      ,#SotreNameEN#
+      ,#StopType#
+      ,#StoreAddr#
+      ,#StorePhone#
+      ,#StoreMasterPhone#
+      ,#StoreMasterName#
+      )
+    </insert>
+
+
+
+
+    <update id="StoreInfo.Update" parameterClass="StoreInfo">
+      UPDATE [StoreInfo]
+      SET
+      [City] = #City#
+      ,[CounterCode] = #CounterCode#
+      ,[StoreName] = #StoreName#
+      ,[SotreNameEN] = #SotreNameEN#
+      ,[StopType] = #StopType#
+      ,[StoreAddr] = #StoreAddr#
+      ,[StorePhone] = #StorePhone#
+      ,[StoreMasterPhone] = #StoreMasterPhone#
+      ,[StoreMasterName] = #StoreMasterName#
+
+      WHERE  1=1
+    </update>
+
+    <delete id="StoreInfo.Delete" >
+      delete from [StoreInfo]
+    </delete>
+
+    <insert id="StoreInfo.InsertBatch" >
+      INSERT into dbo.StoreInfo  SELECT * FROM StoreInfoTemp
+    </insert>
+    
+    
+  </statements>
+
+</sqlMap>

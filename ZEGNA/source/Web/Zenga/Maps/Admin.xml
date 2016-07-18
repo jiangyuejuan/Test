@@ -1,0 +1,59 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="Admin"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	 <alias>
+        <typeAlias alias="Admin" type="Zenga.Model.Admin, Zenga.Model"  />
+    </alias>
+	
+	<resultMaps>
+		<resultMap id="Admin.AdminMap" class="Admin">   		
+		<result property="UserName" column="UserName" dbType="string" />
+		<result property="PWD" column="PWD" dbType="string" />
+				</resultMap>
+    </resultMaps>
+	
+	<statements>
+
+        <select id="Admin.GetAll" >
+            SELECT * FROM [Admin]
+        </select>
+		
+		<select id="Admin.QueryUser" resultClass="Admin" parameterClass="Hashtable">
+			SELECT * FROM [Admin] where UserName=#UserName# and PWD=#Pwd# 
+		</select>
+
+		<select id="Admin.QueryByUser" resultClass="Admin" parameterClass="string">
+			SELECT * FROM [Admin] where UserName=#value# 
+		</select>
+               
+
+        <insert id="Admin.Insert" parameterClass="Admin">
+            INSERT INTO  [Admin]
+            (
+                         [UserName] 
+                                    ,[PWD] 
+                       )
+            VALUES
+            (   
+                        #UserName#
+                                    ,#PWD#
+                        )
+        </insert>
+
+
+		       
+
+        <update id="Admin.Update" parameterClass="Admin">
+			UPDATE [Admin]
+			SET
+			[UserName] = #UserName#
+			,[PWD] = #PWD#
+
+			WHERE  1=1 and UserName=#UserName#
+		</update>
+
+    </statements>
+	
+</sqlMap>

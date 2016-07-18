@@ -1,0 +1,84 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="StoreInfoTemp"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <alias>
+    <typeAlias alias="StoreInfoTemp" type="Zenga.Model.StoreInfoTemp, Zenga.Model"  />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="StoreInfoTemp.StoreInfoTempMap" class="StoreInfoTemp">
+      <result property="City" column="City" dbType="string" />
+      <result property="CounterCode" column="CounterCode" dbType="string" />
+      <result property="StoreName" column="StoreName" dbType="string" />
+      <result property="SotreNameEN" column="SotreNameEN" dbType="string" />
+      <result property="StopType" column="StopType" dbType="string" />
+      <result property="StoreAddr" column="StoreAddr" dbType="string" />
+      <result property="StorePhone" column="StorePhone" dbType="string" />
+      <result property="StoreMasterPhone" column="StoreMasterPhone" dbType="string" />
+      <result property="StoreMasterName" column="StoreMasterName" dbType="string" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="StoreInfoTemp.GetAll" >
+      SELECT * FROM [StoreInfoTemp]
+    </select>
+
+
+
+    <insert id="StoreInfoTemp.Insert" parameterClass="StoreInfoTemp">
+      INSERT INTO  [StoreInfoTemp]
+      (
+      [City]
+      ,[CounterCode]
+      ,[StoreName]
+      ,[SotreNameEN]
+      ,[StopType]
+      ,[StoreAddr]
+      ,[StorePhone]
+      ,[StoreMasterPhone]
+      ,[StoreMasterName]
+      )
+      VALUES
+      (
+      #City#
+      ,#CounterCode#
+      ,#StoreName#
+      ,#SotreNameEN#
+      ,#StopType#
+      ,#StoreAddr#
+      ,#StorePhone#
+      ,#StoreMasterPhone#
+      ,#StoreMasterName#
+      )
+    </insert>
+
+
+
+
+    <update id="StoreInfoTemp.Update" parameterClass="StoreInfoTemp">
+      UPDATE [StoreInfoTemp]
+      SET
+      [City] = #City#
+      ,[CounterCode] = #CounterCode#
+      ,[StoreName] = #StoreName#
+      ,[SotreNameEN] = #SotreNameEN#
+      ,[StopType] = #StopType#
+      ,[StoreAddr] = #StoreAddr#
+      ,[StorePhone] = #StorePhone#
+      ,[StoreMasterPhone] = #StoreMasterPhone#
+      ,[StoreMasterName] = #StoreMasterName#
+
+      WHERE  1=1
+    </update>
+
+    <delete id="StoreInfoTemp.Delete" >
+      DELETE FROM [StoreInfoTemp]
+    </delete>
+
+  </statements>
+</sqlMap>
+

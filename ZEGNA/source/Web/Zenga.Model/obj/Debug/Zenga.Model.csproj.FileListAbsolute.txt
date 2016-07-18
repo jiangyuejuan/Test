@@ -1,0 +1,12 @@
+E:\workspace\ZEGNA\source\Web\Zenga.Model\bin\Debug\Zenga.Model.dll
+E:\workspace\ZEGNA\source\Web\Zenga.Model\bin\Debug\Zenga.Model.pdb
+E:\workspace\ZEGNA\source\Web\Zenga.Model\obj\Debug\Zenga.Model.dll
+E:\workspace\ZEGNA\source\Web\Zenga.Model\obj\Debug\Zenga.Model.pdb
+E:\source\Web\Zenga.Model\bin\Debug\Zenga.Model.dll
+E:\source\Web\Zenga.Model\bin\Debug\Zenga.Model.pdb
+E:\source\Web\Zenga.Model\obj\Debug\Zenga.Model.dll
+E:\source\Web\Zenga.Model\obj\Debug\Zenga.Model.pdb
+D:\SvnServer\ZEGNA\source\Web\Zenga.Model\bin\Debug\Zenga.Model.dll
+D:\SvnServer\ZEGNA\source\Web\Zenga.Model\bin\Debug\Zenga.Model.pdb
+D:\SvnServer\ZEGNA\source\Web\Zenga.Model\obj\Debug\Zenga.Model.dll
+D:\SvnServer\ZEGNA\source\Web\Zenga.Model\obj\Debug\Zenga.Model.pdb

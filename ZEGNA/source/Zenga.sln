@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendSMS_Zenga", "Job\SendSMS_Zenga\SendSMS_Zenga\SendSMS_Zenga.csproj", "{32A63DDC-7474-48AA-9391-8AEB40CBB5D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenga.Web", "Web\Zenga\Zenga.Web.csproj", "{75AE70CD-E8B0-467B-A49D-BF696C97399B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenga.Model", "Web\Zenga.Model\Zenga.Model.csproj", "{D85D0A60-EF6F-422A-AC8D-B09BCE05848F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32A63DDC-7474-48AA-9391-8AEB40CBB5D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A63DDC-7474-48AA-9391-8AEB40CBB5D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A63DDC-7474-48AA-9391-8AEB40CBB5D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A63DDC-7474-48AA-9391-8AEB40CBB5D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75AE70CD-E8B0-467B-A49D-BF696C97399B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75AE70CD-E8B0-467B-A49D-BF696C97399B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75AE70CD-E8B0-467B-A49D-BF696C97399B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75AE70CD-E8B0-467B-A49D-BF696C97399B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D85D0A60-EF6F-422A-AC8D-B09BCE05848F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D85D0A60-EF6F-422A-AC8D-B09BCE05848F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85D0A60-EF6F-422A-AC8D-B09BCE05848F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D85D0A60-EF6F-422A-AC8D-B09BCE05848F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="SendSmsHis"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	 <alias>
+        <typeAlias alias="SendSmsHis" type="Zenga.Model.SendSmsHis, Zenga.Model"  />
+    </alias>
+	
+	<resultMaps>
+		<resultMap id="SendSmsHis.SendSmsHisMap" class="SendSmsHis">   		
+		<result property="ID" column="ID" dbType="int" />
+		<result property="ActionType" column="ActionType" dbType="int" />
+		<result property="DestMobile" column="DestMobile" dbType="string" />
+		<result property="SendContent" column="SendContent" dbType="string" />
+      <result property="SendResult" column="SendResult" dbType="string" />
+		<result property="CreateTime" column="CreateTime" dbType="DateTime" />
+				</resultMap>
+    </resultMaps>
+	
+	<statements>
+
+        <select id="SendSmsHis.GetAll" >
+            SELECT * FROM [SendSmsHis]
+        </select>
+        
+               
+
+        <insert id="SendSmsHis.Insert" parameterClass="SendSmsHis">
+          INSERT INTO  [SendSmsHis]
+          (
+          [ActionType]
+          ,[DestMobile]
+          ,[SendContent]
+          ,[SendResult]
+          ,[CreateTime]
+          )
+          VALUES
+          (
+          #ActionType#
+          ,#DestMobile#
+          ,#SendContent#
+          ,#SendResult#
+          ,#CreateTime#
+          )
+        </insert>
+
+
+		       
+
+        <update id="SendSmsHis.Update" parameterClass="SendSmsHis">
+            UPDATE [SendSmsHis]
+            SET
+                        [ID] = #ID# 
+                                    ,[ActionType] = #ActionType# 
+                                    ,[DestMobile] = #DestMobile# 
+                                    ,[SendContent] = #SendContent# 
+                                    ,[CreateTime] = #CreateTime# 
+                        
+            WHERE  1=1
+                    </update>
+
+    </statements>
+	
+</sqlMap>

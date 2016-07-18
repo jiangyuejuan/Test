@@ -1,0 +1,99 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="VIPCardInfo"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	 <alias>
+        <typeAlias alias="VIPCardInfo" type="Zenga.Model.VIPCardInfo, Zenga.Model"  />
+    </alias>
+	
+	<resultMaps>
+		<resultMap id="VIPCardInfo.VIPCardInfoMap" class="VIPCardInfo">   		
+		<result property="Mobile" column="Mobile" dbType="string" />
+		<result property="CustomerCode" column="CustomerCode" dbType="string" />
+		<result property="CounterCode" column="CounterCode" dbType="string" />
+		<result property="MemberCode" column="MemberCode" dbType="string" />
+		<result property="MemberName" column="MemberName" dbType="string" />
+		<result property="CardCode" column="CardCode" dbType="string" />
+		<result property="CardAmount" column="CardAmount" dbType="string" />
+		<result property="StoreName" column="StoreName" dbType="string" />
+		<result property="StorePhone" column="StorePhone" dbType="string" />
+				</resultMap>
+    </resultMaps>
+	
+	<statements>
+
+        <select id="VIPCardInfo.GetAll" >
+            SELECT * FROM [VIPCardInfo]
+        </select>
+
+    <select id="VIPCardInfo.FindOne" parameterClass="string" resultMap="VIPCardInfo.VIPCardInfoMap" >
+      SELECT * FROM [VIPCardInfo] 
+      where CardCode= #value#
+    </select>
+
+		<select id="VIPCardInfo.GetCardByMobile" parameterClass="string" resultClass="VIPCardInfo" >
+			SELECT * FROM [VIPCardInfo]
+			where Mobile= #value#
+		</select>
+
+		<select id="VIPCardInfo.GetCardByMemberCode" parameterClass="string" resultClass="VIPCardInfo" >
+			SELECT * FROM [VIPCardInfo]
+			where MemberCode= #value#
+		</select>
+
+		<select id="VIPCardInfo.GetCardByCardCode" parameterClass="string" resultClass="VIPCardInfo" >
+			SELECT * FROM [VIPCardInfo]
+			where CardCode= #value#
+		</select>
+               
+
+        <insert id="VIPCardInfo.Insert" parameterClass="VIPCardInfo">
+			INSERT INTO  [VIPCardInfo]
+			(
+			[Mobile]
+			,[CustomerCode]
+			,[CounterCode]
+			,[MemberCode]
+			,[MemberName]
+			,[CardCode]
+			,[CardAmount]
+			,[StoreName]
+			,[StorePhone]
+			)
+			VALUES
+			(
+			#Mobile#
+			,#CustomerCode#
+			,#CounterCode#
+			,#MemberCode#
+			,#MemberName#
+			,#CardCode#
+			,#CardAmount#
+			,#StoreName#
+			,#StorePhone#
+			)
+		</insert>
+
+
+		       
+
+        <update id="VIPCardInfo.Update" parameterClass="VIPCardInfo">
+			UPDATE [VIPCardInfo]
+			SET
+			[Mobile] = #Mobile#
+			,[CustomerCode] = #CustomerCode#
+			,[CounterCode]=#CounterCode#
+			,[MemberCode] = #MemberCode#
+			,[MemberName] = #MemberName#
+			,[CardCode] = #CardCode#
+			,[CardAmount] = #CardAmount#
+			,[StoreName] = #StoreName#
+			,[StorePhone] = #StorePhone#
+
+			WHERE  1=1
+		</update>
+
+    </statements>
+	
+</sqlMap>

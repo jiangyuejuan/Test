@@ -1,0 +1,63 @@
+﻿<?xml version="1.0"  encoding="utf-8" ?>
+<sqlMap namespace="StoreLoginInfo"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <alias>
+    <typeAlias alias="StoreLoginInfo" type="Zenga.Model.StoreLoginInfo, Zenga.Model"  />
+  </alias>
+
+  <resultMaps>
+    <resultMap id="StoreLoginInfo.StoreLoginInfoMap" class="StoreLoginInfo">
+      <result property="CounterCode" column="CounterCode" dbType="string" />
+      <result property="PWD" column="PWD" dbType="string" />
+    </resultMap>
+  </resultMaps>
+
+  <statements>
+
+    <select id="StoreLoginInfo.GetAll" >
+      SELECT * FROM [StoreLoginInfo]
+    </select>
+
+
+    <select id="StoreLoginInfo.QueryByLogin" resultClass="StoreLoginInfo" parameterClass="Hashtable">
+      SELECT * FROM [StoreLoginInfo] where CounterCode=#UserName# and PWD=#Pwd#
+    </select>
+
+	  <select id="StoreLoginInfo.QueryByUser" resultClass="StoreLoginInfo" parameterClass="string">
+		  SELECT * FROM [StoreLoginInfo] where CounterCode=#value# 
+	  </select>
+
+    <insert id="StoreLoginInfo.Insert" parameterClass="StoreLoginInfo">
+      INSERT INTO  [StoreLoginInfo]
+      (
+      [CounterCode]
+      ,[PWD]
+      )
+      VALUES
+      (
+      #CounterCode#
+      ,#PWD#
+      )
+    </insert>
+
+
+
+
+    <update id="StoreLoginInfo.Update" parameterClass="StoreLoginInfo">
+		UPDATE [StoreLoginInfo]
+		SET
+		[CounterCode] = #CounterCode#
+		,[PWD] = #PWD#
+
+		WHERE  1=1 and CounterCode=#CounterCode#
+	</update>
+
+    <insert id="StoreLoginInfo.InsertBatch">
+      INSERT INTO dbo.StoreLoginInfo  SELECT countercode ,'111111' FROM  dbo.StoreInfo WHERE CounterCode NOT IN (SELECT CounterCode FROM dbo.StoreLoginInfo)
+    </insert>
+
+  </statements>
+
+</sqlMap>
